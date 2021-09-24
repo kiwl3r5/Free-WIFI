@@ -401,9 +401,10 @@ MonoBehaviour:
   total: 0
   sumCollected: 0
   sceneNum: 1
-  scoreMax: 10800
+  scoreMax: 10000
   curScore: 0
   totalPlaytime: 0
+  roundedScore: 
   deadUI: {fileID: 3265811909855410424}
   pauseUI: {fileID: 3265811911710430038}
   returnToText: {fileID: 3265811911643920509}
@@ -411,6 +412,7 @@ MonoBehaviour:
   lvCompleteUI: {fileID: 8319545873556386371}
   winUI: {fileID: 3265811911033871570}
   scoreText: {fileID: 6971209808601951256}
+  realTimeScoreText: {fileID: 6135293694955771056}
   totalPlayTimeText: {fileID: 5771088536227680173}
   collectedBarUI: {fileID: 650043315407364830}
   nextLevelButton: {fileID: 7767920297668986377}
@@ -1909,8 +1911,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 294.52, y: -107.91}
-  m_SizeDelta: {x: 511.04, y: 95.819}
+  m_AnchoredPosition: {x: 277.99994, y: -99.531006}
+  m_SizeDelta: {x: 478, y: 112.576}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8505568701210250804
 CanvasRenderer:
@@ -1933,7 +1935,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1953,7 +1955,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: score
+  m_Text: 
 --- !u!1 &4503802675787509021
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,6 +20,7 @@ namespace Script.Manager
             GameManager.Instance.LoadLevel(1);
             Cursor.lockState = CursorLockMode.Locked;
             GameManager.Instance.objectiveUI.gameObject.SetActive(true);
+            GameManager.Instance.realTimeScoreText.gameObject.SetActive(true);
             GameManager.Instance.sceneNum = 1;
             AudioManager.Instance.Play("Theme1");
         }

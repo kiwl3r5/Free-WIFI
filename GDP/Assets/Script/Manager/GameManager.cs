@@ -18,7 +18,7 @@ namespace Script.Manager
         public float total;
         public float sumCollected;
         public int sceneNum;
-        [SerializeField] private float scoreMax = 10800;
+        [SerializeField] private float scoreMax = 10000;
         [SerializeField] private float curScore;
         public float totalPlaytime;
         public string roundedScore;
@@ -79,7 +79,7 @@ namespace Script.Manager
                 totalPlaytime += Time.deltaTime;
                 curScore -= Time.deltaTime;
                 roundedScore = curScore.ToString("0000");
-                realTimeScoreText.text = $"Score {roundedScore}";
+                realTimeScoreText.text = TimeFormatter(totalPlaytime);
             }
         }
 
@@ -218,6 +218,7 @@ namespace Script.Manager
             GameOverUI(false);
             LoadLevel(0);
             Cursor.lockState = CursorLockMode.None;
+            realTimeScoreText.gameObject.SetActive(false);
             objectiveUI.gameObject.SetActive(false);
             AudioManager.Instance.Stop("Theme1");
             //Invoke(nameof(DestroyGameObj),0.1f);
