@@ -14,7 +14,7 @@ public class CustomBullet : MonoBehaviour
     [Range(0f,1f)]
     [SerializeField] private float bounciness;
     [SerializeField] private bool useGravity;
-    private int numLimite;
+    private int _numLimite;
 
     //Damage
     [SerializeField] private int explosionDamage;
@@ -49,9 +49,9 @@ public class CustomBullet : MonoBehaviour
     
     private void Explode()
     {
-        if (numLimite<2)
+        if (_numLimite<2)
         {
-            numLimite++;
+            _numLimite++;
         }
 
         //Check for enemies 
@@ -60,7 +60,7 @@ public class CustomBullet : MonoBehaviour
         {
             //Get component of enemy and call Take Damage
             //enemy.GetComponent<SimpleCharacterController>().OnTakeDamage(explosionDamage);
-            if (numLimite == 1)
+            if (_numLimite == 1)
             {
                 enemy.GetComponent<PlayerManager>().OnTakeDamage(explosionDamage);
             }
@@ -71,7 +71,7 @@ public class CustomBullet : MonoBehaviour
         }
 
         //Add a little delay, just to make sure everything works fine
-        if (numLimite==1)
+        if (_numLimite==1)
         {
             if (explosion != null) SimplePool.Spawn(explosion, transform.position, Quaternion.identity);//Instantiate(explosion, transform.position, Quaternion.identity);
             AudioManager.Instance.Play("Eggplotion");

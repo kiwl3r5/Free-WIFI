@@ -30,6 +30,8 @@ namespace Script.Manager
         public GameObject objectiveUI;
         public GameObject lvCompleteUI;
         public GameObject winUI;
+        public GameObject speedUpUI;
+        public GameObject invincUI;
         public Text scoreText;
         public Text realTimeScoreText;
         public Text totalPlayTimeText;
@@ -160,6 +162,16 @@ namespace Script.Manager
                     break;
             }
         }
+
+        public void SpeedUpUI(bool check)
+        {
+            speedUpUI.SetActive(check);
+        }
+        public void InvincUI(bool check)
+        {
+            invincUI.SetActive(check);
+        }
+        
         #endregion //========================================================================================
 
         #region SceneControl <===================================================================================

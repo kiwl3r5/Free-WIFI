@@ -12,6 +12,7 @@ namespace Script.Player
         [SerializeField] private Image healthBar;
         [SerializeField] private float hp = 100;
         private float maxHp;
+        public bool godmode = false;
 
         public bool isInteracting;
         private static readonly int IsInteracting = Animator.StringToHash("IsInteracting");
@@ -46,7 +47,10 @@ namespace Script.Player
 
         public void OnTakeDamage(int damageReceive)
         {
-            hp -= damageReceive;
+            if (!godmode)
+            {
+                hp -= damageReceive;
+            }
             healthBar.fillAmount = hp/maxHp;
             if (hp<=0)
             {
