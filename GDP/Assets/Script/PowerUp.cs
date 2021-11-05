@@ -16,6 +16,7 @@ public class PowerUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            AudioManager.Instance.Play("Powerup");
             RandomPower();
             StartCoroutine(Pickup(other));
         }

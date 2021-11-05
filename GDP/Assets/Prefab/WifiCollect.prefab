@@ -446,6 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62105645d22ffd14c9487407ab74e48e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupWifi: {fileID: 889217178952454343, guid: 86f09be4293079346a445e7c233736af, type: 3}
 --- !u!135 &7940411848922166439
 SphereCollider:
   m_ObjectHideFlags: 0

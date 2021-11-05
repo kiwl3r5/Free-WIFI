@@ -49,13 +49,20 @@ namespace Script.Player
         {
             if (!godmode)
             {
+                GameManager.Instance.TakeDmgUI(true);
                 hp -= damageReceive;
+                Invoke(nameof(ResetDmgUI), 0.7f);
             }
             healthBar.fillAmount = hp/maxHp;
             if (hp<=0)
             {
                 GameManager.Instance.GameOverUI(true);
             }
+        }
+
+        private void ResetDmgUI()
+        {
+            GameManager.Instance.TakeDmgUI(false);
         }
     }
 }

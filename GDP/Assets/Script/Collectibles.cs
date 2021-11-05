@@ -4,6 +4,7 @@ using UnityEngine;
 public class Collectibles : MonoBehaviour
 {
     //public GameManager gm;
+    public GameObject pickupWifi;
 
     private void Start()
     {
@@ -17,7 +18,8 @@ public class Collectibles : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //FindObjectOfType<AudioManager>().Play("Collected");
+            Instantiate(pickupWifi, transform.position, transform.rotation);
+            AudioManager.Instance.Play("Wifi");
             Destroy(gameObject);
             GameManager.Instance.sumCollected++;
             GameManager.Instance.collectible--;

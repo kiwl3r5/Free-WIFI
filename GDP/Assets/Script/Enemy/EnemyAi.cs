@@ -16,6 +16,9 @@ namespace Script.Enemy
         [SerializeField] private Transform shootPoint;
         
         [SerializeField] private Transform enemy;
+
+        [SerializeField] private GameObject alertSprite;
+        private SpriteRenderer alertSpriteRen;
         
         private Animator _animator;
         //[SerializeField] private GameManager gameManager;
@@ -51,6 +54,7 @@ namespace Script.Enemy
         [SerializeField] private float timeOfDistance = 1;
         private static readonly int velocity = Animator.StringToHash("Velocity");
         private static readonly int IsAttack = Animator.StringToHash("IsAttack");
+        [SerializeField] private bool alreadyAlert = false;
 
         private void Awake()
         {
@@ -58,6 +62,7 @@ namespace Script.Enemy
             player = GameObject.Find("LookAt").transform;
             agent = GetComponent<NavMeshAgent>();
             timeDelayAtk = timeDelayBfAttacks;
+            alertSpriteRen = alertSprite.GetComponent<SpriteRenderer>();
             //transform.position = waypoints[startingWaypoint].position;
         }
 
@@ -84,6 +89,23 @@ namespace Script.Enemy
             curSpeed = Mathf.Round(curSpeed * 10f) / 10f;
 
             if (!playerInSightRange && !playerInAttackRange) Patrolling();
+            switch (playerInSightRange)
+            {
+                case false:
+                    AlertSprite(false);
+                    alreadyAlert = false;
+                    break;
+                case true:
+                {
+                    AlertSprite(true);
+                    if (!alreadyAlert)
+                    {
+                        AudioManager.Instance.Play("Alert");
+                    }
+                    alreadyAlert = true;
+                    break;
+                }
+            }
             if (playerInSightRange && !playerInAttackRange) ChasePlayer();
             if (playerInAttackRange && playerInSightRange && !GameManager.Instance.gameIsLose) AttackPlayer();
 
@@ -194,6 +216,11 @@ namespace Script.Enemy
             Gizmos.DrawWireSphere(position, attackRange);
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(position, sightRange);
+        }
+        
+        private void AlertSprite(bool isHide)
+        {
+            alertSpriteRen.enabled = isHide;
         }
     }
 }

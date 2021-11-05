@@ -69,3 +69,39 @@ MonoBehaviour:
     loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: Powerup
+    clip: {fileID: 8300000, guid: c8b30adeb00c6b24bb8d4c0d23bbabdd, type: 3}
+    volume: 0.3
+    volumeVariance: 0.05
+    pitch: 1
+    pitchVariance: 0
+    spatialBlend: 0
+    rolloffMode: 0
+    maxDistance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Alert
+    clip: {fileID: 8300000, guid: ba35cc500c92c8944b0b031324680fcc, type: 3}
+    volume: 0.4
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    spatialBlend: 0
+    rolloffMode: 0
+    maxDistance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Wifi
+    clip: {fileID: 8300000, guid: 474ed3f1cea185f4185d71fed10a97fb, type: 3}
+    volume: 0.4
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    spatialBlend: 0
+    rolloffMode: 0
+    maxDistance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}

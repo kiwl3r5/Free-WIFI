@@ -32,6 +32,7 @@ namespace Script.Manager
         public GameObject winUI;
         public GameObject speedUpUI;
         public GameObject invincUI;
+        public GameObject takeDmgUI;
         public Text scoreText;
         public Text realTimeScoreText;
         public Text totalPlayTimeText;
@@ -167,9 +168,15 @@ namespace Script.Manager
         {
             speedUpUI.SetActive(check);
         }
+        
         public void InvincUI(bool check)
         {
             invincUI.SetActive(check);
+        }
+        
+        public void TakeDmgUI(bool check)
+        {
+            takeDmgUI.SetActive(check);
         }
         
         #endregion //========================================================================================
