@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - LockCam
+  - GameManager
+  - PauseUI
+  - FxTemporaire
+  - Enemy
+  - Bullet
+  - ground
+  - HpUI
+  - Halo
   layers:
   - Default
   - TransparentFX

@@ -36,8 +36,11 @@ public class PowerUp : MonoBehaviour
                 break;
             case 2:
                 Invincibility(player);
-                yield return new WaitForSeconds(duration*2);
-                InvincibilityReset(player);
+                if (!GameManager.Instance.isInvincibleCheatOn)
+                {
+                    yield return new WaitForSeconds(duration*2);
+                    InvincibilityReset(player);
+                }
                 break;
         }
 

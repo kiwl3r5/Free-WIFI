@@ -1,4 +1,5 @@
 using System.Collections;
+using Script.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -26,6 +27,7 @@ namespace Script.Manager
         [Header("UI")]
         public GameObject deadUI;
         public GameObject pauseUI;
+        public GameObject cheatUI;
         public Text returnToText;
         public GameObject objectiveUI;
         public GameObject lvCompleteUI;
@@ -43,6 +45,11 @@ namespace Script.Manager
         public Button[] restartButtons;
         public Button[] mainMenuButtons;
         public Button[] quitButtons;
+        public Toggle superSpeed;
+        public Toggle invincible;
+        public bool isInvincibleCheatOn;
+        public Toggle superJump;
+        public Button instantDownload;
 
         private void Awake()
         {
@@ -60,6 +67,10 @@ namespace Script.Manager
             ButtonSetup(mainMenuButtons);
             ButtonSetup(quitButtons);
             nextLevelButton.onClick.AddListener(LoadLastLevel);
+            superSpeed.onValueChanged.AddListener(delegate {SuperSpeedCheat(superSpeed);});
+            invincible.onValueChanged.AddListener(delegate {InvincibleCheat(invincible);});
+            superJump.onValueChanged.AddListener(delegate {SuperJumpCheat(superJump);});
+            instantDownload.onClick.AddListener(InstantDownloadCheat);
             curScore = scoreMax;
             sceneNum = SceneManager.GetActiveScene().buildIndex;
         }
@@ -84,6 +95,11 @@ namespace Script.Manager
                 roundedScore = curScore.ToString("0000");
                 realTimeScoreText.text = TimeFormatter(totalPlaytime);
             }
+
+            if (Input.GetKey(KeyCode.C)&&Input.GetKey(KeyCode.H)&&Input.GetKey(KeyCode.E)&&Input.GetKey(KeyCode.A)&&Input.GetKey(KeyCode.T))
+            {
+                cheatUI.gameObject.SetActive(true);
+            }
         }
 
         private void CollectibleCheck()
@@ -101,7 +117,56 @@ namespace Script.Manager
                 returnToText.text = "You don't have internet but want to play a game. Find free wifi signal to fill the download progress bar.";
             }
         }
-
+        #region CheatCode <========================================================================================
+        private void SuperSpeedCheat(Toggle tgValue)
+        {
+            switch (tgValue.isOn)
+            {
+                case true:
+                    PlayerLocomotion.Instance.movementSpeed *= 3;
+                    PlayerLocomotion.Instance.sprintingSpeed *= 3;
+                    break;
+                case false:
+                    PlayerLocomotion.Instance.movementSpeed /= 3;
+                    PlayerLocomotion.Instance.sprintingSpeed /= 3;
+                    break;
+            }
+        }
+        private void SuperJumpCheat(Toggle tgValue)
+        {
+            switch (tgValue.isOn)
+            {
+                case true:
+                    PlayerLocomotion.Instance.jumpHeight *= 4;
+                    break;
+                case false:
+                    PlayerLocomotion.Instance.jumpHeight /= 4;
+                    break;
+            }
+        }
+        private void InvincibleCheat(Toggle tgValue)
+        {
+            switch (tgValue.isOn)
+            {
+                case true:
+                    PlayerManager.Instance.godmode = true;
+                    isInvincibleCheatOn = true;
+                    invincUI.SetActive(true);
+                    break;
+                case false:
+                    PlayerManager.Instance.godmode = false;
+                    isInvincibleCheatOn = false;
+                    invincUI.SetActive(false);
+                    break;
+            }
+        }
+        private void InstantDownloadCheat()
+        {
+            sumCollected = total;
+            collectible = 0;
+            collectedBarUI.fillAmount = sumCollected / total;
+        }
+        #endregion //========================================================================================
         #region GameUI <========================================================================================
         private void PauseMenuInput()
         {
@@ -145,6 +210,7 @@ namespace Script.Manager
             else
             {
                 PauseGame();
+                ResetPowerUp();
             }
         }
         public void GameWinUI(bool check)
@@ -162,6 +228,12 @@ namespace Script.Manager
                     ResumeGame();
                     break;
             }
+        }
+
+        public void ResetPowerUp()
+        {
+            SpeedUpUI(false);
+            InvincUI(false);
         }
 
         public void SpeedUpUI(bool check)
@@ -201,6 +273,7 @@ namespace Script.Manager
         public void Restart()
         {
             ResetCollectibleN();
+            ResetPowerUp();
             if (gameIsWin)
             {
                 sceneNum = 1;
@@ -235,10 +308,13 @@ namespace Script.Manager
             Pause_UI(false);
             GameWinUI(false);
             GameOverUI(false);
+            TakeDmgUI(false);
             LoadLevel(0);
             Cursor.lockState = CursorLockMode.None;
             realTimeScoreText.gameObject.SetActive(false);
             objectiveUI.gameObject.SetActive(false);
+            ResetPowerUp();
+            
             AudioManager.Instance.Stop("Theme1");
             //Invoke(nameof(DestroyGameObj),0.1f);
         }

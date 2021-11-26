@@ -1,3 +1,4 @@
+using Script.Manager;
 using UnityEngine;
 
 namespace Script.Player
@@ -30,18 +31,36 @@ namespace Script.Player
         [Header("Jump Speed")]
         public float jumpHeight = 3;
         public float gravityIntensity = -15;
-        
-        
+
+
         private static readonly int IsJumping = Animator.StringToHash("IsJumping");
+        
+        private static PlayerLocomotion _instance;
+        public static PlayerLocomotion Instance { get { return _instance; } }
 
         private void Awake()
         {
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this.gameObject);
+            } else {
+                _instance = this;
+            }
             _playerManager = GetComponent<PlayerManager>();
             _animatorManager = GetComponent<AnimatorManager>();
             _inputManager = GetComponent<InputManager>();
             _playerRigidbody = GetComponent<Rigidbody>();
             _cameraObj = GameObject.FindWithTag("LockCam");
             Debug.Assert(_cameraObj != null,"_cameraObj != null");
+        }
+        
+        private void Start()
+        {
+            if (!GameManager.Instance.superSpeed.isOn) return;
+            movementSpeed *= 3;
+            sprintingSpeed *= 3;
+            if (!GameManager.Instance.superJump.isOn) return;
+            jumpHeight *= 4;
         }
 
         public void HandleAllMovement()

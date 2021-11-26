@@ -13,19 +13,38 @@ namespace Script.Player
         [SerializeField] private float hp = 100;
         private float maxHp;
         public bool godmode = false;
+        public GameObject invincHalo;
 
         public bool isInteracting;
         private static readonly int IsInteracting = Animator.StringToHash("IsInteracting");
         private static readonly int IsJumping = Animator.StringToHash("IsJumping");
         private static readonly int IsGrounded = Animator.StringToHash("IsGrounded");
+        
+        private static PlayerManager _instance;
+        public static PlayerManager Instance { get { return _instance; } }
 
         private void Awake()
         {
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this.gameObject);
+            } else {
+                _instance = this;
+            }
             _animator = GetComponentInChildren<Animator>();
             _inputManager = GetComponent<InputManager>();
             _playerLocomotion = GetComponent<PlayerLocomotion>();
+            invincHalo = GameObject.FindGameObjectWithTag("Halo");
             maxHp = hp;
             healthBar.fillAmount = hp/maxHp;
+        }
+
+        private void Start()
+        {
+            if (GameManager.Instance.invincible.isOn)
+            {
+                godmode = true;
+            }
         }
 
         private void Update()
@@ -36,6 +55,7 @@ namespace Script.Player
         private void FixedUpdate()
         {
             _playerLocomotion.HandleAllMovement();
+            invincHalo.gameObject.SetActive(godmode);
         }
 
         private void LateUpdate()
