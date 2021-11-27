@@ -7,11 +7,18 @@ namespace Script.Manager
     {
         public Button startButton;
         public Button quitButton;
+        public GameObject creditsPanel;
+        public Button creditsOpen;
+        public Button creditsClose;
+        [SerializeField]private bool isCreditsOpen;
         private void Awake()
         {
             Debug.Assert(startButton!=null,"startButton!=null");
+            isCreditsOpen = false;
             quitButton.onClick.AddListener(Quit);
             startButton.onClick.AddListener(StartGame);
+            creditsOpen.onClick.AddListener(OpenCloseCredits);
+            creditsClose.onClick.AddListener(OpenCloseCredits);
             
         }
 
@@ -29,6 +36,21 @@ namespace Script.Manager
         {
             Debug.Log("Quit Game");
             Application.Quit();
+        }
+
+        private void OpenCloseCredits()
+        {
+            switch (isCreditsOpen)
+            {
+                case true:
+                    creditsPanel.gameObject.SetActive(false);
+                    isCreditsOpen = false;
+                    break;
+                case false:
+                    creditsPanel.gameObject.SetActive(true);
+                    isCreditsOpen = true;
+                    break;
+            }
         }
     }
 }
